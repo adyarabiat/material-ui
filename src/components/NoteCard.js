@@ -5,13 +5,28 @@ import {
   CardContent,
   IconButton,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
+const useStyles = makeStyles(() => {
+  return {
+    test: {
+      // to apply specific styling depends on what we want
+      border: (note) => {
+        if (note.category === "work") {
+          return "1px solid blue";
+        }
+      },
+    },
+  };
+});
 const NoteCard = ({ note, onDelete }) => {
+  const classes = useStyles(note);
+
   return (
     <div>
-      <Card elevation={3}>
+      <Card elevation={3} className={classes.test}>
         <CardHeader
           title={note.title}
           subheader={note.category}
