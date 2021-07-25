@@ -7,9 +7,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  AppBar,
+  Toolbar,
+  Avatar,
 } from "@material-ui/core";
 import { SubjectOutlined, AddCircleOutline } from "@material-ui/icons";
 import { useHistory, useLocation } from "react-router-dom";
+import Moment from "moment";
 
 const drawerWidth = 240;
 
@@ -37,6 +41,16 @@ const useStyles = makeStyles((theme) => {
     title: {
       padding: theme.spacing(2),
     },
+    appbar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+    toolbar: theme.mixins.toolbar,
+    date: {
+      flexGrow: 1,
+    },
+    avatar: {
+      marginLeft: theme.spacing(2),
+    },
   };
 });
 
@@ -62,7 +76,15 @@ const Layout = (props) => {
   return (
     <div className={classes.root}>
       {/* app bar */}
-
+      <AppBar className={classes.appbar} elevation={0}>
+        <Toolbar>
+          <Typography className={classes.date}>
+            Today is {Moment().format("MMM Do YYYY")}
+          </Typography>
+          <Typography>Mario</Typography>
+          <Avatar src="/mario-av.png" className={classes.avatar} />
+        </Toolbar>
+      </AppBar>
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -97,7 +119,11 @@ const Layout = (props) => {
           })}
         </List>
       </Drawer>
-      <div className={classes.page}>{props.children}</div>
+
+      <div className={classes.page}>
+        <div className={classes.toolbar}></div>
+        {props.children}
+      </div>
     </div>
   );
 };
